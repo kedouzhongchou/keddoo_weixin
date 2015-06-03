@@ -10,7 +10,7 @@ var config = {
 
 router.get('/', wechat(config, function(req, res, next){
     res.writeHead(200);
-    res.end("hello noad weixin api.");
+    res.end("hello node weixin api.");
 }));
 
 module.exports = router;
