@@ -21,7 +21,7 @@ var config = {
 //    res.send(s.message);
 //});
 
-router.get('/', wechat(config, wechat.text(function (message, req, res, next) {
+router.post('/', wechat(config, wechat.text(function (message, req, res, next) {
             res.reply('然后呢？');
             res.reply({
                 type: 'music',
