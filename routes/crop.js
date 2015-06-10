@@ -4,6 +4,9 @@ var router = express.Router();
 
 var wechat = require('wechat-enterprise');
 
+var API = wechat.API;
+var api = new API('wxe58a0875744a70fa', 'oS62UR8k7idkC93vZXEKzAH_dET0egR1B6_caHVGeSpjRv0Y1kcM2Gt0WR2EwRjG', '0');
+
 var config = {
     token: 'KrGV',
     encodingAESKey: 'wpQ3o70XYbPLc2PC5ODwDwKIcDiBqWBj1PgPVwRQGZ6',
@@ -21,13 +24,43 @@ var config = {
 //    res.send(s.message);
 //});
 
+var menu = {
+    "button": [
+        {
+            "type": "click",
+            "name": "最新项目",
+            "key": "V1001_NEWEST_PROJECT"
+        },
+        {
+            "name": "菜单",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "搜索",
+                    "url": "http://www.baidu.com/"
+                },
+                {
+                    "type": "click",
+                    "name": "赞一下我们",
+                    "key": "V1001_GOOD"
+                }
+            ]
+        }
+    ]
+}
+
 router.post('/', wechat(config, wechat.text(function (message, req, res, next) {
-console.log(message);
-	if(message.Content == '你好'){
-           res.reply('我不好');
-	}else{
-            res.reply('嗯？');
-	 }
+            console.log(message);
+            if (message.Content == '你好') {
+                res.reply('我不好');
+            } else if (message.Content == '新建目录') {
+                api.createMenu(menu, function (err, result) {
+                    console.log('err : ' + err + ", result : " + result);
+                });
+            } else {
+                res.reply('嗯？');
+
+            }
 //            res.reply([
 //                {
 //                    title: '蝌蚪众筹',
@@ -36,7 +69,7 @@ console.log(message);
 //                    url: 'http://www.keddoo.com/'
 //                }
 //            ]);
-	    
+
         }
     )
         .
