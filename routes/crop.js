@@ -22,24 +22,21 @@ var config = {
 //});
 
 router.post('/', wechat(config, wechat.text(function (message, req, res, next) {
-            res.reply('然后呢？');
-            res.reply({
-                type: 'music',
-                content: {
-                    title: '来一首歌曲放送一下吧',
-                    description: '月半弯',
-                    musicUrl: 'http://sc.111ttt.com/up/mp3/132580/D24B0B4EF3B2DD5F61B4D374671616D2.mp3',
-                    hqMusicUrl: 'http://sc.111ttt.com/up/mp3/132580/D24B0B4EF3B2DD5F61B4D374671616D2.mp3'
-                }
-            });
-            res.reply([
-                {
-                    title: '你来我家接我吧',
-                    description: '这是女神与高富帅之间的对话',
-                    picurl: 'http://7sbpff.com1.z0.glb.clouddn.com/images/QR-keddoo.png',
-                    url: 'http://http://www.keddoo.com/'
-                }
-            ]);
+console.log(message);
+	if(message.Content == '你好'){
+           res.reply('我不好');
+	}else{
+            res.reply('嗯？');
+	 }
+//            res.reply([
+//                {
+//                    title: '蝌蚪众筹',
+//                    description: '有你更精彩！',
+//                    picurl: 'http://7sbpff.com1.z0.glb.clouddn.com/images/QR-keddoo.png',
+//                    url: 'http://www.keddoo.com/'
+//                }
+//            ]);
+	    
         }
     )
         .
