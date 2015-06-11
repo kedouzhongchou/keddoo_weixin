@@ -1,28 +1,28 @@
 var express = require('express');
 var router = express.Router();
-//var WXBizMsgCrypt = require('wechat-crypto');
+var WXBizMsgCrypt = require('wechat-crypto');
 
 var wechat = require('wechat-enterprise');
 
 var API = wechat.API;
-var api = new API('wxe58a0875744a70fa', 'oS62UR8k7idkC93vZXEKzAH_dET0egR1B6_caHVGeSpjRv0Y1kcM2Gt0WR2EwRjG', '0');
+var api = new API('wxe58a0875744a70fa', 'oS62UR8k7idkC93vZXEKzAH_dET0egR1B6_caHVGeSpjRv0Y1kcM2Gt0WR2EwRjG', '21');
 
 var config = {
-    token: 'KrGV',
-    encodingAESKey: 'wpQ3o70XYbPLc2PC5ODwDwKIcDiBqWBj1PgPVwRQGZ6',
+    token: 'UfQDrmFqogJMOHw6fn6OvLXnz2',
+    encodingAESKey: 'BwPyhi3kTLKga9iFGhXmDQKvHC7HVYPhwz2DMJmjtXf',
     corpId: 'wxe58a0875744a70fa'
 };
 
 //回调验证
-//router.get('/', function(req, res){
-//    var msg_signature = req.query.msg_signature;
-//    var timestamp = req.query.timestamp;
-//    var nonce = req.query.nonce;
-//    var echostr = req.query.echostr;
-//    var cryptor = new WXBizMsgCrypt(config.token, config.encodingAESKey, config.corpId)
-//    var s = cryptor.decrypt(echostr);
-//    res.send(s.message);
-//});
+router.get('/', function(req, res){
+    var msg_signature = req.query.msg_signature;
+    var timestamp = req.query.timestamp;
+    var nonce = req.query.nonce;
+    var echostr = req.query.echostr;
+    var cryptor = new WXBizMsgCrypt(config.token, config.encodingAESKey, config.corpId)
+    var s = cryptor.decrypt(echostr);
+    res.send(s.message);
+});
 
 router.post('/', wechat(config, wechat.text(function (message, req, res, next) {
             console.log(message);
