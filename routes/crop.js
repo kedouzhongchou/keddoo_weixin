@@ -24,39 +24,16 @@ var config = {
 //    res.send(s.message);
 //});
 
-var menu = {
-    "button": [
-        {
-            "type": "click",
-            "name": "最新项目",
-            "key": "V1001_NEWEST_PROJECT"
-        },
-        {
-            "name": "菜单",
-            "sub_button": [
-                {
-                    "type": "view",
-                    "name": "搜索",
-                    "url": "http://www.baidu.com/"
-                },
-                {
-                    "type": "click",
-                    "name": "赞一下我们",
-                    "key": "V1001_GOOD"
-                }
-            ]
-        }
-    ]
-}
-
 router.post('/', wechat(config, wechat.text(function (message, req, res, next) {
             console.log(message);
             if (message.Content == '你好') {
                 res.reply('我不好');
             } else if (message.Content == '新建目录') {
+                var menu = JSON.stringify(require('../config/weixin_menu.json'));
                 api.createMenu(menu, function (err, result) {
                     console.log('err : ' + err + ", result : " + result);
                 });
+            } else if (message.Content == '获取通讯录') {
             } else {
                 res.reply('嗯？');
 
