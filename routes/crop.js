@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var WXBizMsgCrypt = require('wechat-crypto');
+var util = require('util');
 
 var wechat = require('wechat-enterprise');
 
@@ -14,7 +15,7 @@ var config = {
 };
 
 //回调验证
-router.get('/', function(req, res){
+router.get('/', function (req, res) {
     var msg_signature = req.query.msg_signature;
     var timestamp = req.query.timestamp;
     var nonce = req.query.nonce;
@@ -34,29 +35,29 @@ router.post('/', wechat(config, wechat.text(function (message, req, res, next) {
                     console.log('err : ' + err + ", result : " + result);
                 });
             } else if (message.Content == '获取通讯录') {
+            } else if (message.Content == '新闻') {
+                res.reply([
+                    {
+                        title: '蝌蚪众筹',
+                        description: '有你更精彩！',
+                        picurl: 'http://7sbpff.com1.z0.glb.clouddn.com/images/QR-keddoo.png',
+                        url: 'http://www.keddoo.com/'
+                    }
+                ]);
             } else {
                 res.reply('嗯？');
-
             }
-//            res.reply([
-//                {
-//                    title: '蝌蚪众筹',
-//                    description: '有你更精彩！',
-//                    picurl: 'http://7sbpff.com1.z0.glb.clouddn.com/images/QR-keddoo.png',
-//                    url: 'http://www.keddoo.com/'
-//                }
-//            ]);
-
         }
     )
         .
         location(function (message, req, res, next) {
+            console.log(util.inspect("message: " + message));
+            console.log(util.inspect("req: " + req));
             res.reply({type: 'text', content: '你是猪吗？迷路了？'});
         })
-        .event(function (mesage, req, res, next) {
-
+        .event(function (message, req, res, next) {
+            res.reply(util.inspect(message));
         })
-))
-;
+));
 
 module.exports = router;
