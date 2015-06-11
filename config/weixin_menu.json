@@ -6,6 +6,11 @@
       "key": "V1001_NEWEST_PROJECT"
     },
     {
+      "type": "click",
+      "name": "通讯录",
+      "key": "V1002_CROP_CONTACT"
+    },
+    {
       "name": "菜单",
       "sub_button": [
         {

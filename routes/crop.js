@@ -25,6 +25,38 @@ router.get('/', function (req, res) {
     res.send(s.message);
 });
 
+var sendTo = {
+    "touser": "@all",
+    "toparty": "@all",
+    "totag": "@all"
+};
+
+var sendMessage = {
+    "msgtype": "news",
+    "news": {
+        "articles": [
+            {
+                "title": "Title",
+                "description": "Description",
+                "url": "http://www.keddoo.com",
+                "picurl": "http://7sbpff.com1.z0.glb.clouddn.com/images/QR-keddoo.png"
+            }
+        ]
+    },
+    "safe": "0"
+}
+
+//推送标题为message的消息
+router.get('/pushmessage/:message', function (req, res) {
+    sendMessage.news.articles[0].title = req.params.message;
+    api.send(sendTo, sendMessage, function (err, data) {
+        console.log(util.inspect(err));
+        console.log(util.inspect(data));
+    });
+    res.end();
+});
+
+
 router.post('/', wechat(config, wechat.text(function (message, req, res, next) {
             console.log(message);
             if (message.Content == '你好') {
